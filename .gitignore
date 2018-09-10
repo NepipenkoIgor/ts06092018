@@ -1,0 +1,8 @@
+node_modules
+.nyc
+.vscode
+.DS_Store
+.idea/
+**/*.js
+!webpack.config.js
+dist/
