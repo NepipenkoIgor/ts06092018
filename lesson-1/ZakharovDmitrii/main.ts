@@ -51,10 +51,7 @@ function generateMenu(list: IMenuItem[]): string {
         content += `<li><a class="${class_}">${a.title}</a>`;
 
         if (hasItems) {
-            // Error:(54, 37) TS2345: Argument of type 'IMenuItem[] | undefined'
-            // is not assignable to parameter of type 'IMenuItem[]'.
-            // Type 'undefined' is not assignable to type 'IMenuItem[]'.
-            content += generateMenu(a.items);
+            content += generateMenu(a.items as IMenuItem[]);
         } else {
             content += `</li>`;
         }
