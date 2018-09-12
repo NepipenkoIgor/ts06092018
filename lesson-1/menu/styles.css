@@ -10,6 +10,8 @@
   -webkit-user-select: none;
   user-select: none;
 }
+
+
 .menu li a:hover{
   font-weight: 600;
 }
@@ -36,9 +38,21 @@
   margin-right: 5px;
 }
 
-.menu ul li ul{
-  display:none;
+
+ul{
+  display: none;
 }
-.menu .menu-open>ul {
-  display: block;
+
+.menu>ul
+{
+  display:block;
+}
+.menu-open>ul {
+  display: block; !important;
+}
+
+.menu li span {
+  display:block;
+  margin-left: 20px;
+
 }

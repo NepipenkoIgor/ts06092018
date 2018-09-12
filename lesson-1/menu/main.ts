@@ -1,26 +1,85 @@
-interface IMenuItem {
+const raw_data: any[] = [{
+    title: 'Животные', items: [
+        {
+            title: 'Млекопитающие', items: [
+                {title: 'Коровы'},
+                {title: 'Ослы'},
+                {title: 'Собаки'},
+                {title: 'Тигры'}
+            ]
+        },
+        {
+            title: 'Другие', items: [
+                {title: 'Змеи'},
+                {title: 'Птицы'},
+                {title: 'Ящерицы'},
+            ],
+        },
+    ]
+},
+    {
+        title: 'Рыбы', items: [
+            {
+                title: 'Аквариумные', items: [
+                    {title: 'Гуппи'},
+                    {title: 'Скалярии'}
+                ]
+            },
+            {
+                title: 'Форель', items: [
+                    {title: 'Морская форель'}
+                ]
+            }
+        ]
+    }];
+
+
+// вариант через типы
+
+type Node = {
     title: string;
-    items: string[];
+    items?: Node[];
+};
+
+
+// вариант через интерфейсы
+
+interface INode {
+    title: string;
+    items?: INode[];
 }
 
-const menuList: IMenuItem[] = [
-    {
-        items: ['Angular', 'React', 'Vue'],
-        title: 'JavaScript',
-    }, {
-        items: ['Angular', 'Polymer'],
-        title: 'Dart',
-    }
-];
 
-function generateMenu(list: IMenuItem[]): string {
+// либо так, ведь не просто так нам говорили про проброс в конце
+type Node2<T> = {
+    title: string;
+    items?: T[];
+};
+
+// вариант 1
+const menuList: Node[] = [...raw_data];
+
+// вариант 2
+const menuList2: INode[] = [...raw_data];
+
+// вариант 3
+const menuList3: Node2[] = [...raw_data];
+
+
+function generateMenu(list: Node[]): string {
     let content: string = `<ul>`;
     for (const a of list) {
-        content += `<li><a class="title"> ${a.title}</a><ul>`;
-        for (const item of a.items) {
-            content += `<li><a>${item}</a></li>`;
+
+        if  (!a.items)
+        {
+            content += `<li><span> ${a.title}</span>`;
         }
-        content += `</li></ul>`;
+        else
+        {
+            content += `<li><a class="title"> ${a.title}</a>`;
+            content +=generateMenu(a.items);
+        }
+        content += `</li>`;
     }
     content += `</ul>`;
     return content;
@@ -28,6 +87,7 @@ function generateMenu(list: IMenuItem[]): string {
 
 let navMenuList = document.querySelector('.menu') as HTMLDivElement;
 navMenuList.innerHTML = generateMenu(menuList);
+
 navMenuList.onclick = (ev: MouseEvent) => {
     const el = ev.target as HTMLAnchorElement;
     const classList = el.classList;
