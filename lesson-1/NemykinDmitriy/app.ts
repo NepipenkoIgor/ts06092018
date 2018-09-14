@@ -90,6 +90,10 @@ navMenuList.innerHTML = generateMenu(menuList);
 
 navMenuList.addEventListener('click', function(evt: MouseEvent) {
     const anchor = evt.target as HTMLAnchorElement;
+    if (!anchor.classList.contains('title')) {
+        return;
+    }
+
     const liElement = anchor.parentNode as HTMLLIElement;
     liElement.classList.toggle('menu-open');
 });
