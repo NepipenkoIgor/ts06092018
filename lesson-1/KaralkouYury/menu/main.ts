@@ -46,27 +46,37 @@ const menuList: IMenuItem[] = [
     }
 ];
 
-// function generateMenu(list: IMenuItem[]): string {
-//     let content: string = `<ul>`;
-//     for (const a of list) {
-//         content += `<li><a class="title"> ${a.title}</a><ul>`;
-//         for (const item of a.items) {
-//             content += `<li><a>${item}</a></li>`;
-//         }
-//         content += `</li></ul>`;
-//     }
-//     content += `</ul>`;
-//     return content;
-// }
-//
-// let navMenuList = document.querySelector('.menu') as HTMLDivElement;
-// navMenuList.innerHTML = generateMenu(menuList);
-// navMenuList.onclick = (ev: MouseEvent) => {
-//     const el = ev.target as HTMLAnchorElement;
-//     const classList = el.classList;
-//     if (!classList.contains('title')) {
-//         return;
-//     }
-//     const parenLi = el.parentNode as HTMLLIElement;
-//     parenLi.classList.toggle('menu-open');
-// };
+function generateMenu(list: IMenuItem[]): string {
+    let content: string = `<ul>`;
+    let hasItems: boolean;
+    let linkClass: string;
+
+    for (const menuLevel of list) {
+        hasItems = (Array.isArray(menuLevel.items) && menuLevel.items.length > 0);
+        linkClass = hasItems ? 'title' : '';
+
+        content += `<li><a class="${linkClass}">${menuLevel.title}</a>`;
+
+        if (Array.isArray(menuLevel.items) && menuLevel.items.length > 0) {
+            content += generateMenu(menuLevel.items);
+        } else {
+            content += `</li>`;
+        }
+    }
+
+    content += `</ul>`;
+
+    return content;
+}
+
+let navMenuList = document.querySelector('.menu') as HTMLDivElement;
+navMenuList.innerHTML = generateMenu(menuList);
+navMenuList.onclick = (ev: MouseEvent) => {
+    const el = ev.target as HTMLAnchorElement;
+    const classList = el.classList;
+    if (!classList.contains('title')) {
+        return;
+    }
+    const parenLi = el.parentNode as HTMLLIElement;
+    parenLi.classList.toggle('menu-open');
+};
