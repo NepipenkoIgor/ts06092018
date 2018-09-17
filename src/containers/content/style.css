@@ -1,0 +1,11 @@
+.card {
+  height: 60px;
+  box-shadow: 0 4px 2px -2px grey;
+}
+
+.card img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 0 4px 2px -2px grey;
+}
