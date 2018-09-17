@@ -1,7 +1,6 @@
 {
   "name": "ts060918",
   "version": "1.0.0",
-  "description": "",
   "main": "lesson-1/example.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +13,17 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
+    "@types/core-js": "^2.5.0",
     "axios": "^0.18.0",
     "rxjs": "^6.3.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rinatr1/ts06092018.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rinatr1/ts06092018/issues"
+  },
+  "homepage": "https://github.com/rinatr1/ts06092018#readme",
+  "description": ""
 }
