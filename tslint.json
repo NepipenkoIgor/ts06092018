@@ -48,7 +48,7 @@
 
     "class-name": true,
     "no-console": [
-      true,
+      false,
       "log",
       "debug",
       "info",
@@ -133,7 +133,7 @@
       "check-finally"
     ],
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "semicolon": [

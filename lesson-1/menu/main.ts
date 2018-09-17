@@ -1,67 +1,22 @@
-// interface IMenuItem {
-//     title: string;
-//     items: string[];
-// }
-//
-// const menuList: IMenuItem[] = [
-//     {
-//         items: ['Angular', 'React', 'Vue'],
-//         title: 'JavaScript',
-//     }, {
-//         items: ['Angular', 'Polymer'],
-//         title: 'Dart',
-//     }
-// ];
-//
-// function generateMenu(list: IMenuItem[]): string {
-//     let content: string = `<ul>`;
-//     for (const a of list) {
-//         content += `<li><a class="title"> ${a.title}</a><ul>`;
-//         for (const item of a.items) {
-//             content += `<li><a>${item}</a></li>`;
-//         }
-//         content += `</li></ul>`;
-//     }
-//     content += `</ul>`;
-//     return content;
-// }
-//
-// let navMenuList = document.querySelector('.menu') as HTMLDivElement;
-// navMenuList.innerHTML = generateMenu(menuList);
-// navMenuList.onclick = (ev: MouseEvent) => {
-//     const el = ev.target as HTMLAnchorElement;
-//     const classList = el.classList;
-//     if (!classList.contains('title')) {
-//         return;
-//     }
-//     const parenLi = el.parentNode as HTMLLIElement;
-//     parenLi.classList.toggle('menu-open');
-// };
-interface IMenuItem {
-    title: string;
-    items?: IMenuItem[];
-}
-
-const menuList: IMenuItem[] = [
-    {
-        title: 'Животные', items: [
-            {
-                title: 'Млекопитающие', items: [
-                    {title: 'Коровы'},
-                    {title: 'Ослы'},
-                    {title: 'Собаки'},
-                    {title: 'Тигры'}
-                ]
-            },
-            {
-                title: 'Другие', items: [
-                    {title: 'Змеи'},
-                    {title: 'Птицы'},
-                    {title: 'Ящерицы'},
-                ],
-            },
-        ]
-    },
+const raw_data: any[] = [{
+    title: 'Животные', items: [
+        {
+            title: 'Млекопитающие', items: [
+                {title: 'Коровы'},
+                {title: 'Ослы'},
+                {title: 'Собаки'},
+                {title: 'Тигры'}
+            ]
+        },
+        {
+            title: 'Другие', items: [
+                {title: 'Змеи'},
+                {title: 'Птицы'},
+                {title: 'Ящерицы'},
+            ],
+        },
+    ]
+},
     {
         title: 'Рыбы', items: [
             {
@@ -74,29 +29,57 @@ const menuList: IMenuItem[] = [
                 title: 'Форель', items: [
                     {title: 'Морская форель'}
                 ]
-            },
+            }
         ]
     }];
 
-function generateMenu(list: IMenuItem[]): string {
-    let hasItems: boolean;
-    let class_: string;
+
+// вариант через типы
+
+type Node = {
+    title: string;
+    items?: Node[];
+};
+
+
+// вариант через интерфейсы
+
+interface INode {
+    title: string;
+    items?: INode[];
+}
+
+
+// либо так, ведь не просто так нам говорили про проброс в конце
+type Node2<T> = {
+    title: string;
+    items?: T[];
+};
+
+// вариант 1
+const menuList: Node[] = [...raw_data];
+
+// вариант 2
+const menuList2: INode[] = [...raw_data];
+
+// вариант 3
+const menuList3: Node2[] = [...raw_data];
+
+
+function generateMenu(list: Node[]): string {
     let content: string = `<ul>`;
-
     for (const a of list) {
-        hasItems = (Array.isArray(a.items) && a.items.length > 0);
-        class_ = hasItems ? 'title' : '';
 
-        content += `<li><a class="${class_}">${a.title}</a>`;
-
-        if (Array.isArray(a.items) && a.items.length > 0) {
-            // Error:(54, 37) TS2345: Argument of type 'IMenuItem[] | undefined'
-            // is not assignable to parameter of type 'IMenuItem[]'.
-            // Type 'undefined' is not assignable to type 'IMenuItem[]'.
-            content += generateMenu(a.items);
-        } else {
-            content += `</li>`;
+        if  (!a.items)
+        {
+            content += `<li><span> ${a.title}</span>`;
         }
+        else
+        {
+            content += `<li><a class="title"> ${a.title}</a>`;
+            content +=generateMenu(a.items);
+        }
+        content += `</li>`;
     }
     content += `</ul>`;
     return content;
@@ -104,6 +87,7 @@ function generateMenu(list: IMenuItem[]): string {
 
 let navMenuList = document.querySelector('.menu') as HTMLDivElement;
 navMenuList.innerHTML = generateMenu(menuList);
+
 navMenuList.onclick = (ev: MouseEvent) => {
     const el = ev.target as HTMLAnchorElement;
     const classList = el.classList;
