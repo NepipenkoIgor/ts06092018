@@ -5,6 +5,7 @@ import {
     getUniqueSet,
     isInArray,
     summator,
+    summatorOverload,
     toMatrix
 } from './lesson-2';
 
@@ -47,8 +48,12 @@ describe('lesson-2', () => {
     it('summator', () => {
         expect(summator(1, 2, 3)).to.equal(6);
         expect(summator('1', '2', '3')).to.equal(6);
-        expect(summator(1, '2', 3, '4')).to.equal(10);
-        expect(summator(1, 'bad2string', 3, '4')).to.equal(8);
+        expect(summator('1', 'bad2string', '3', '4')).to.equal(8);
+    });
+    it('summatorOverload', () => {
+        expect(summatorOverload(1, 2, 3)).to.equal(6);
+        expect(summatorOverload('1', '2', '3')).to.equal(6);
+        expect(summatorOverload('1', 'bad2string', '3', '4')).to.equal(8);
     });
     it('getUnique', () => {
         expect(getUnique(1, 2, 3)).to.eql([1, 2, 3]);

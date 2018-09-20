@@ -14,11 +14,21 @@ export function isInArray(arr: any[], ...args: any[]): boolean {
 //     писать функцию summator(), которая сумирует переданые ей аргументы.
 //     Аргументы могут быть либо строкового либо числового типа. Количество их не ограничено
 
+export function summator<T>(...args: T[]): number {
+    return args.reduce((acc: number, item: T) => {
+        acc += typeof item === 'number' ? item : (parseInt(String(item), 10) || 0);
+
+        return acc;
+    }, 0);
+}
+
 type StringOrNumber = string | number;
 
-export function summator(...args: StringOrNumber[]): number {
+export function summatorOverload(...args: number[]): number;
+export function summatorOverload(...args: string[]): number;
+export function summatorOverload(...args: StringOrNumber[]): number {
     return args.reduce((acc: number, item: StringOrNumber) => {
-        acc += typeof item === 'number' ? item : (parseInt(item, 10) || 0);
+        acc += typeof item === 'number' ? item : (parseInt(String(item), 10) || 0);
 
         return acc;
     }, 0);
