@@ -7,7 +7,9 @@ export function isInArray(arr: any[], ...args: any[]): boolean {
     const preparedArrForMap = arr.map(item => [item, true] as [any, boolean]);
     const argsMap = new Map(preparedArrForMap);
 
-    return args.length ? args.every(arg => argsMap.has(arg)) : false;
+    return args.length
+        ? args.every(arg => argsMap.has(arg))
+        : false;
 }
 
 // 2)
@@ -16,8 +18,9 @@ export function isInArray(arr: any[], ...args: any[]): boolean {
 
 export function summator<T>(...args: T[]): number {
     return args.reduce((acc: number, item: T) => {
-        acc += typeof item === 'number' ? item : (parseInt(String(item), 10) || 0);
-
+        acc += typeof item === 'number'
+            ? item
+            : (parseInt(String(item), 10) || 0);
         return acc;
     }, 0);
 }
@@ -41,7 +44,7 @@ export function summatorOverload(...args: StringOrNumber[]): number {
 //     в котором они встречаются в оригинальной структуре.
 
 export function getUnique(...args: StringOrNumber[]): StringOrNumber[] {
-    const uniqSet: {[key: string]: boolean} = Object.create(null);
+    const uniqSet: { [key: string]: boolean } = Object.create(null);
     const uniq: StringOrNumber[] = [];
 
     args.forEach(arg => {

@@ -22,7 +22,7 @@ function summator(...args: (string | number)[]): number {
         }
         return sum += arg;
     }, 0);
-}    
+}
 
 /*3)
   Написать функцию getUnique(arr), которая принимает аргументом неограниченое число аргументов,
@@ -34,9 +34,10 @@ function summator(...args: (string | number)[]): number {
 function getUnique(...arr: any[]): any[] {
     let result: any[] = [];
     arr.forEach((el) => {
-        if (result.indexOf(el) === -1) {
-            result.push(el);
+        if (result.indexOf(el) !== -1) {
+           return;
         }
+        result.push(el);
     });
     return result;
 }

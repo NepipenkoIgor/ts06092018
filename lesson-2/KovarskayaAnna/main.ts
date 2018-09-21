@@ -4,7 +4,7 @@ function isInArray(a: any[], ...b: any[]): boolean {
             res = false;
         }
         return res;
-        }, true);
+    }, true);
 }
 
 
@@ -13,12 +13,14 @@ console.log(isInArray([1, 2, 3], 1, 2, 3));
 console.log(isInArray([1, 2, 3], 1, 2, 3, 4));
 console.log(isInArray([1, '2', 3, 4], 1, '2', 3));
 
-function summator(...args: string[]):string;
-function summator(...args: number[]):number;
-function summator(...args: (string|number)[]): string | number {
+function summator(...args: string[]): string;
+function summator(...args: number[]): number;
+function summator(...args: (string | number)[]): string | number {
     let result: any;
     args.forEach((el) => {
-            result = (result ) ? result + el : el;
+        result = (result)
+            ? result + el
+            : el;
     });
     return result;
 }
@@ -42,18 +44,19 @@ console.log(getUnique(2, 3));
 console.log(getUnique(2, 3, true, 'string'));
 console.log(getUnique(2, 'string', 3, true, 'string', 3));
 
-function toMatrix(arr:any[], data:number):any[][]{
+function toMatrix(arr: any[], data: number): any[][] {
     let a: any[][] = [];
-    let nextStep:number;
-    let i:number = 0;
+    let nextStep: number;
+    let i: number = 0;
     while (i < arr.length) {
-        nextStep = i + data
-        a.push(arr.slice(i, nextStep) );
+        nextStep = i + data;
+        a.push(arr.slice(i, nextStep));
         i = nextStep;
     }
     return a;
 }
-console.log(toMatrix([1,2,3,4], 2));
-console.log(toMatrix([1,2,3,4,5], 2));
-console.log(toMatrix([1,2,3,4,5], 3));
+
+console.log(toMatrix([1, 2, 3, 4], 2));
+console.log(toMatrix([1, 2, 3, 4, 5], 2));
+console.log(toMatrix([1, 2, 3, 4, 5], 3));
 

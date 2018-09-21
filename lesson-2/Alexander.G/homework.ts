@@ -2,24 +2,26 @@
 //     Возвращает true, если все аргументы, кроме первого входят в первый.
 //     Первым всегда должен быть массив.
 
-function isInArray (arr: any[], arg1: any, ...args: any[]): boolean {
-    args = [arg1, ...args];
+type snb = string | number;
+
+export function isInArray(arr: snb[], ...args: snb[]): boolean {
+    // args = [arg1, ...args];
     return args.every((arg: any) => (arr.includes(arg)));
 }
 
 // 2) писать функцию summator(), которая сумирует переданые ей аргументы.
 //     Аргументы могут быть либо строкового либо числового типа. Количество их не ограничено
 
-function isString (dataToCheck: number|string): dataToCheck is string {
+export function isString(dataToCheck: number | string): dataToCheck is string {
     return typeof dataToCheck === 'string';
 }
 
-function summator (...args: string[]): number;
-function summator (...args: number[]): number;
-function summator (...args: (number|string)[]): number {
-    return args.reduce((acc: number, arg: (number|string)) => {
+export function summator(...args: string[]): number;
+export function summator(...args: number[]): number;
+export function summator(...args: (number | string)[]): number {
+    return args.reduce((acc: number, arg: (number | string)) => {
         if (isString(arg)) {
-            arg = +arg;
+            arg = Number(arg);
         }
         return acc += arg;
     }, 0);
@@ -30,7 +32,7 @@ function summator (...args: (number|string)[]): number {
 //     Порядок элементов результирующего массива должен совпадать с порядком,
 //     в котором они встречаются в оригинальной структуре.
 
-function getUnique (...args: any[]): any[] {
+export function getUnique(...args: any[]): any[] {
     return [...new Set(args)];
 }
 
@@ -39,7 +41,7 @@ function getUnique (...args: any[]): any[] {
 //     элементы подмассивов беруться из массива data.
 //     Оригинальный массив не должен быть изменен.
 
-function toMatrix (data: any[] = [], rowSize: number = 0) {
+export function toMatrix(data: any[] = [], rowSize: number = 0) {
     return data.reduce((matrix: any[][], element: any, index: number) => {
         if (index % rowSize === 0) {
             matrix.push([element]);
