@@ -82,10 +82,10 @@
       true,
       2
     ],
-    "no-default-export": false,
+    "no-default-export": true,
     "prefer-const": true,
     "array-type": [
-      true,
+      false,
       "array"
     ],
     "no-conditional-assignment": true,
