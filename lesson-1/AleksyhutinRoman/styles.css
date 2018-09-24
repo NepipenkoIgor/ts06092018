@@ -39,6 +39,6 @@
 .menu ul li ul{
   display:none;
 }
-.menu .menu-open ul {
+.menu .menu-open>ul {
   display: block;
 }

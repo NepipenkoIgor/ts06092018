@@ -5,24 +5,57 @@ interface IMenuItem {
 
 const menuList: IMenuItem[] = [
     {
-        items: ['Angular', 'React', 'Vue'],
-        title: 'JavaScript',
-    }, {
-        items: ['Angular', 'Polymer'],
-        title: 'Dart',
+        title: 'Животные', items: [
+            {
+                title: 'Млекопитающие', items: [
+                    {title: 'Коровы'},
+                    {title: 'Ослы'},
+                    {title: 'Собаки'},
+                    {title: 'Тигры'}
+                ]
+            },
+            {
+                title: 'Другие', items: [
+                    {title: 'Змеи'},
+                    {title: 'Птицы'},
+                    {title: 'Ящерицы'},
+                ],
+            },
+        ]
+    },
+    {
+        title: 'Рыбы', items: [
+            {
+                title: 'Аквариумные', items: [
+                    {title: 'Гуппи'},
+                    {title: 'Скалярии'}
+                ]
+            },
+            {
+                title: 'Форель', items: [
+                    {title: 'Морская форель'}
+                ]
+            },
+        ]
     }
 ];
 
 function generateMenu(list: IMenuItem[]): string {
-    let content: string = `<ul>`;
-    for (const a of list) {
-        content += `<li><a class="title"> ${a.title}</a><ul>`;
-        for (const item of a.items) {
-            content += `<li><a>${item}</a></li>`;
+    let content: string = '<ul>';
+    let hasSubmenu: boolean = false;
+    for (const item of list) {
+        if (Array.isArray(item.items) && item.items.length) {
+            hasSubmenu = true;
         }
-        content += `</li></ul>`;
+        content += `<li><a class="${hasSubmenu ? 'title' : ''}">${item.title}</a>`;
+
+        if (Array.isArray(item.items) && item.items.length) {
+            content += generateMenu(item.items);
+        } else {
+            content += `</li>`;
+        }
     }
-    content += `</ul>`;
+    content += '</ul>';
     return content;
 }
 
